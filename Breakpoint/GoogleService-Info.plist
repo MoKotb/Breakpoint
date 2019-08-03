@@ -19,18 +19,18 @@
 	<key>STORAGE_BUCKET</key>
 	<string>breakpoint-app7.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:220585627740:ios:f9baccb9690324ed</string>
 	<key>DATABASE_URL</key>
-	<string>https://breakpoint-app7.firebaseio.com</string>
+	<string>https://breakpoint-app7.firebaseio.com/</string>
 </dict>
 </plist>
