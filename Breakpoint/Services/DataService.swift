@@ -50,4 +50,55 @@ class DataService{
         }
     }
     
+    func searchUsersByEmail(searchKey:String,completion:@escaping (_ users:[String])->()){
+        var usersArray = [String]()
+        REF_USERS.observe(.value) { (UsersSnapShot) in
+            guard let snapShot = UsersSnapShot.children.allObjects as? [DataSnapshot] else { return }
+            for user in snapShot{
+                let userEmail = user.childSnapshot(forPath: "email").value as! String
+                if userEmail != Auth.auth().currentUser?.email && userEmail.contains(searchKey){
+                    usersArray.append(userEmail)
+                }
+            }
+            completion(usersArray)
+        }
+    }
+    
+    func getUsersIdByEmail(emails:[String],completion:@escaping (_ ids:[String])->()){
+        var usersIdArray = [String]()
+        REF_USERS.observeSingleEvent(of: .value){ (UsersSnapShot) in
+            guard let snapShot = UsersSnapShot.children.allObjects as? [DataSnapshot] else { return }
+            for user in snapShot{
+                let userEmail = user.childSnapshot(forPath: "email").value as! String
+                if emails.contains(userEmail){
+                    usersIdArray.append(user.key)
+                }
+            }
+            completion(usersIdArray)
+        }
+    }
+    
+    func createNewGroup(title:String,description:String,ids:[String],completion:@escaping (_ status:Bool)->()){
+        let group = ["title":title,"description":description,"members":ids] as [String : Any]
+        REF_GROUPS.childByAutoId().updateChildValues(group)
+        completion(true)
+    }
+    
+    func getAllGroups(completion:@escaping (_ groups:[Group])->()){
+        var groupsArray = [Group]()
+        REF_GROUPS.observeSingleEvent(of: .value) { (groupsSnapShot) in
+            guard let snapShot = groupsSnapShot.children.allObjects as? [DataSnapshot] else { return }
+            for group in snapShot{
+                let members = group.childSnapshot(forPath: "members").value as! [String]
+                if members.contains(Auth.auth().currentUser!.uid){
+                    let groupId = group.key
+                    let title = group.childSnapshot(forPath: "title").value as! String
+                    let description = group.childSnapshot(forPath: "description").value as! String
+                    let newGroup = Group(groupId: groupId, groupTitle: title, groupDescription: description, groupMembers: members, groupCount: members.count)
+                    groupsArray.append(newGroup)
+                }
+            }
+            completion(groupsArray)
+        }
+    }
 }

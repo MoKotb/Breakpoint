@@ -30,6 +30,8 @@
 		D1A051F122F008A80029A99B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1A051EF22F008A80029A99B /* Main.storyboard */; };
 		D1A051F322F008AA0029A99B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1A051F222F008AA0029A99B /* Assets.xcassets */; };
 		D1A051F622F008AA0029A99B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1A051F422F008AA0029A99B /* LaunchScreen.storyboard */; };
+		D1DD933C22F679640005BC21 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DD933B22F679640005BC21 /* UserCell.swift */; };
+		D1DD933E22F693EC0005BC21 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DD933D22F693EB0005BC21 /* Group.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,8 @@
 		D1A051F222F008AA0029A99B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D1A051F522F008AA0029A99B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D1A051F722F008AA0029A99B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1DD933B22F679640005BC21 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		D1DD933D22F693EB0005BC21 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +118,7 @@
 				D105EE3422F53182008ABFE8 /* FeedCell.swift */,
 				D105EE3C22F575A0008ABFE8 /* GroupCell.swift */,
 				D105EE3E22F5776A008ABFE8 /* ProfileCell.swift */,
+				D1DD933B22F679640005BC21 /* UserCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -182,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				D105EE3A22F567CD008ABFE8 /* Message.swift */,
+				D1DD933D22F693EB0005BC21 /* Group.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -322,9 +328,11 @@
 				D105EE3F22F5776A008ABFE8 /* ProfileCell.swift in Sources */,
 				D105EE2722F4A450008ABFE8 /* AuthVC.swift in Sources */,
 				D105EE4122F57D4D008ABFE8 /* CreateGroupVC.swift in Sources */,
+				D1DD933E22F693EC0005BC21 /* Group.swift in Sources */,
 				D105EE2422F4A2A5008ABFE8 /* Constants.swift in Sources */,
 				D105EE3722F538B0008ABFE8 /* CreatePostVC.swift in Sources */,
 				D105EE2922F4A466008ABFE8 /* LoginVC.swift in Sources */,
+				D1DD933C22F679640005BC21 /* UserCell.swift in Sources */,
 				D1A051EE22F008A80029A99B /* GroupVC.swift in Sources */,
 				D105EE2F22F5230E008ABFE8 /* ShadowView.swift in Sources */,
 				D105EE3522F53182008ABFE8 /* FeedCell.swift in Sources */,
