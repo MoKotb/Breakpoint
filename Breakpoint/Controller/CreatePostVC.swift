@@ -29,9 +29,9 @@ class CreatePostVC: UIViewController {
         guard let userId = Auth.auth().currentUser?.uid else { return }
         DataService.instance.uploadNewPost(message: message, userID: userId, groupKey: nil) { (Success) in
             if Success {
-                self.sendButton.isEnabled = true
                 self.dismiss(animated: true, completion: nil)
             }
+            self.sendButton.isEnabled = true
         }
     }
     

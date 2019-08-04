@@ -15,12 +15,26 @@ class DataService{
     }
     
     func uploadNewPost(message:String,userID:String,groupKey:String?,completion:@escaping (_ status:Bool)->()){
+        let feed = ["message":message,"senderId":userID]
         if groupKey != nil {
-            
+            REF_GROUPS.child(groupKey!).child("messages").childByAutoId().updateChildValues(feed)
         }else{
-            let feed = ["message":message,"senderId":userID]
             REF_FEEDS.childByAutoId().updateChildValues(feed)
-            completion(true)
+        }
+        completion(true)
+    }
+    
+    func getAllMessagesByGroup(group:Group,completion:@escaping (_ messages:[Message])->()){
+        var messagesArray = [Message]()
+        REF_GROUPS.child(group.groupId).child("messages").observeSingleEvent(of: .value) { (feedsSnapShot) in
+            guard let snapShot = feedsSnapShot.children.allObjects as? [DataSnapshot] else { return }
+            for feed in snapShot{
+                let content = feed.childSnapshot(forPath: "message").value as! String
+                let id = feed.childSnapshot(forPath: "senderId").value as! String
+                let message = Message(content: content, senderId: id)
+                messagesArray.append(message)
+            }
+            completion(messagesArray)
         }
     }
     
@@ -33,6 +47,20 @@ class DataService{
                     completion(email)
                 }
             }
+        }
+    }
+    
+    func getEmailsByGroup(group:Group,completion:@escaping (_ userEmail:[String])->()) {
+        var groupUsers = [String]()
+        REF_USERS.observeSingleEvent(of: .value) { (usersSnapshot) in
+            guard let snapShot = usersSnapshot.children.allObjects as? [DataSnapshot] else { return }
+            for user in snapShot{
+                if group.groupMembers.contains(user.key){
+                    let email = user.childSnapshot(forPath: "email").value as! String
+                    groupUsers.append(email)
+                }
+            }
+            completion(groupUsers)
         }
     }
     
