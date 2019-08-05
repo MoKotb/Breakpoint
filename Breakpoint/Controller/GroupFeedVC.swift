@@ -13,19 +13,31 @@ class GroupFeedVC: UIViewController {
     var group:Group?
     var groupMessages = [Message]()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        sendView.bindToKeyboard()
-        feedTable.delegate = self
-        feedTable.dataSource = self
+    func initData(group:Group){
+        self.group = group
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+    }
+    
+    private func setupView(){
+        feedTable.delegate = self
+        feedTable.dataSource = self
         groupTitle.text = group?.groupTitle
         DataService.instance.getEmailsByGroup(group: group!) { (emails) in
             self.membersText.text = emails.joined(separator: ", ")
         }
+        sendView.bindToKeyboard()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        downloadGroupFeed()
+    }
+    
+    func downloadGroupFeed(){
         DataService.instance.REF_GROUPS.observe(.value) { (data) in
             DataService.instance.getAllMessagesByGroup(group: self.group!, completion: { (returnMessages) in
                 self.groupMessages = returnMessages
@@ -38,21 +50,21 @@ class GroupFeedVC: UIViewController {
         }
     }
     
-    func initData(group:Group){
-        self.group = group
-    }
-    
     @IBAction func backPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        dismissDetails()
     }
     
     @IBAction func sendMessage(_ sender: Any) {
         guard let message = messageTextField.text , messageTextField.text != "" else { return }
         guard let userId = Auth.auth().currentUser?.uid else { return }
+        prepareToSendMessage(message: message, userId: userId)
+    }
+    
+    private func prepareToSendMessage(message:String,userId:String){
         sendButton.isEnabled = false
         messageTextField.isEnabled = false
         DataService.instance.uploadNewPost(message: message, userID: userId, groupKey: group?.groupId) { (Success) in
-            if Success{
+            if Success {
                 self.messageTextField.text = ""
             }
             self.sendButton.isEnabled = true

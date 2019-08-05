@@ -10,5 +10,4 @@ class FeedCell: UITableViewCell {
         userEmail.text = email
         messageContent.text = message
     }
-    
 }

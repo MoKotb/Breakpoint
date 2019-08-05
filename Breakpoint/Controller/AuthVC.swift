@@ -9,10 +9,18 @@ class AuthVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        userLoggedIn()
+    }
+    
+    func userLoggedIn(){
         if Auth.auth().currentUser != nil{
-            guard let tabVC = storyboard?.instantiateViewController(withIdentifier: "TabbarController") else { return }
-            present(tabVC, animated: true, completion: nil)
+            presentToTabbar()
         }
+    }
+    
+    func presentToTabbar(){
+        guard let tabVC = storyboard?.instantiateViewController(withIdentifier: "TabbarController") else { return }
+        presentDetails(tabVC)
     }
     
     @IBAction func loginWithFacebook(_ sender: Any) {
@@ -24,7 +32,11 @@ class AuthVC: UIViewController {
     }
     
     @IBAction func loginByEmail(_ sender: Any) {
+        moveToLoginVC()
+    }
+    
+    func moveToLoginVC(){
         guard let loginVC = storyboard?.instantiateViewController(withIdentifier: LOGIN_VC_IDENTIFIER) as? LoginVC else { return }
-        present(loginVC, animated: true, completion: nil)
+        presentDetails(loginVC)
     }
 }

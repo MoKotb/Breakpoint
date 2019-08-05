@@ -2,6 +2,7 @@ import Foundation
 import Firebase
 
 class AuthService {
+    
     static let instance = AuthService()
     
     func registerUser(email:String,userPassword:String, completion: @escaping (_ status:Bool,_ error:Error?) -> ()) {

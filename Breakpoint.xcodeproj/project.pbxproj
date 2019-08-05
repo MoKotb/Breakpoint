@@ -23,6 +23,7 @@
 		D105EE3D22F575A0008ABFE8 /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D105EE3C22F575A0008ABFE8 /* GroupCell.swift */; };
 		D105EE3F22F5776A008ABFE8 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D105EE3E22F5776A008ABFE8 /* ProfileCell.swift */; };
 		D105EE4122F57D4D008ABFE8 /* CreateGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D105EE4022F57D4D008ABFE8 /* CreateGroupVC.swift */; };
+		D137C1A622F76E7E00C96F13 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D137C1A522F76E7E00C96F13 /* UIViewControllerExtension.swift */; };
 		D193893522F00B6700403873 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D193893422F00B6700403873 /* GoogleService-Info.plist */; };
 		D1A051EA22F008A80029A99B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A051E922F008A80029A99B /* AppDelegate.swift */; };
 		D1A051EC22F008A80029A99B /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A051EB22F008A80029A99B /* FeedVC.swift */; };
@@ -55,6 +56,7 @@
 		D105EE3C22F575A0008ABFE8 /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
 		D105EE3E22F5776A008ABFE8 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		D105EE4022F57D4D008ABFE8 /* CreateGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupVC.swift; sourceTree = "<group>"; };
+		D137C1A522F76E7E00C96F13 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		D193893422F00B6700403873 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D1A051E622F008A80029A99B /* Breakpoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breakpoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1A051E922F008A80029A99B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -173,8 +175,8 @@
 				D1A051EB22F008A80029A99B /* FeedVC.swift */,
 				D105EE3622F538B0008ABFE8 /* CreatePostVC.swift */,
 				D1A051ED22F008A80029A99B /* GroupVC.swift */,
-				D1DD934022F6A85E0005BC21 /* GroupFeedVC.swift */,
 				D105EE4022F57D4D008ABFE8 /* CreateGroupVC.swift */,
+				D1DD934022F6A85E0005BC21 /* GroupFeedVC.swift */,
 				D105EE2A22F4A68A008ABFE8 /* ProfileVC.swift */,
 			);
 			path = Controller;
@@ -202,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				D105EE3822F53E0D008ABFE8 /* KeyboardBoundView.swift */,
+				D137C1A522F76E7E00C96F13 /* UIViewControllerExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				D1DD933E22F693EC0005BC21 /* Group.swift in Sources */,
 				D105EE2422F4A2A5008ABFE8 /* Constants.swift in Sources */,
 				D105EE3722F538B0008ABFE8 /* CreatePostVC.swift in Sources */,
+				D137C1A622F76E7E00C96F13 /* UIViewControllerExtension.swift in Sources */,
 				D105EE2922F4A466008ABFE8 /* LoginVC.swift in Sources */,
 				D1DD933C22F679640005BC21 /* UserCell.swift in Sources */,
 				D1A051EE22F008A80029A99B /* GroupVC.swift in Sources */,

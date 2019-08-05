@@ -8,12 +8,20 @@ class GroupVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+    }
+    
+    func setupView(){
         groupTable.delegate = self
         groupTable.dataSource = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        downloadGroups()
+    }
+    
+    func downloadGroups(){
         DataService.instance.REF_GROUPS.observe(.value) { (DataSnapshot) in
             DataService.instance.getAllGroups { (groups) in
                 self.groupsArray = groups.reversed()
@@ -28,7 +36,12 @@ class GroupVC: UIViewController {
     }
     
     @IBAction func addNewGroup(_ sender: Any) {
-        
+        presentToCreateGroupVC()
+    }
+    
+    private func presentToCreateGroupVC(){
+        guard let createGroupVC = storyboard?.instantiateViewController(withIdentifier: CREATE_GROUP_VC_IDENTIFIER) as? CreateGroupVC else { return }
+        presentDetails(createGroupVC)
     }
 }
 
@@ -56,6 +69,6 @@ extension GroupVC: UITableViewDelegate , UITableViewDataSource {
         guard let groupFeedVC = storyboard?.instantiateViewController(withIdentifier: GROUP_FEED_VC_IDENTIFIER) as? GroupFeedVC else { return }
         let group = groupsArray[indexPath.row]
         groupFeedVC.initData(group: group)
-        present(groupFeedVC, animated: true, completion: nil)
+        presentDetails(groupFeedVC)
     }
 }

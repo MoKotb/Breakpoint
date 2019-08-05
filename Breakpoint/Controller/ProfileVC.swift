@@ -9,11 +9,11 @@ class ProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userEmail.text = Auth.auth().currentUser?.email
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        userEmail.text = Auth.auth().currentUser?.email
     }
     
     @IBAction func logoutPressed(_ sender: Any) {
@@ -26,16 +26,16 @@ class ProfileVC: UIViewController {
             self.configureLogout()
         }
         logout.addAction(logoutAction)
-        present(logout, animated: true, completion: nil)
+        presentDetails(logout)
     }
     
     private func configureLogout(){
         do{
             try Auth.auth().signOut()
             guard let authVC = self.storyboard?.instantiateViewController(withIdentifier: AUTH_VC_IDENTIFIER) as? AuthVC else { return }
-            self.present(authVC, animated: true, completion: nil)
+            self.presentDetails(authVC)
         }catch{
-            print(error.localizedDescription)
+            debugPrint("ProfileVC.configureLogout() \(error.localizedDescription)")
         }
     }
 }

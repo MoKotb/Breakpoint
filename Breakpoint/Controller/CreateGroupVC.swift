@@ -15,35 +15,48 @@ class CreateGroupVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+    }
+    
+    private func setupView(){
         emailsTable.delegate = self
         emailsTable.dataSource = self
         emailTextField.delegate = self
+        titleTextField.delegate = self
+        descriptionTextField.delegate = self
         emailTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         doneButton.isHidden = true
     }
     
     @IBAction func backPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        dismissDetails()
     }
     
     @IBAction func donePressed(_ sender: Any) {
         guard let title = titleTextField.text , titleTextField.text != "" else { return }
         guard let description = descriptionTextField.text , descriptionTextField.text != "" else { return }
+        prepareToCreateGroup(title: title, description: description)
+    }
+    
+    private func prepareToCreateGroup(title:String,description:String){
         if chosenUserArray.count > 0 {
             DataService.instance.getUsersIdByEmail(emails: chosenUserArray) { (usersId) in
                 var ids = usersId
                 guard let meId = Auth.auth().currentUser?.uid else { return }
                 ids.append(meId)
-                DataService.instance.createNewGroup(title: title, description: description, ids: ids, completion: { (Success) in
-                    if Success {
-                        self.dismiss(animated: true, completion: nil)
-                    }else{
-                        print("donePressed error")
-                    }
-                })
+                self.createGroup(title: title, description: description, ids: ids)
             }
         }
-        
+    }
+    
+    private func createGroup(title:String,description:String,ids:[String]){
+        DataService.instance.createNewGroup(title: title, description: description, ids: ids, completion: { (Success) in
+            if Success {
+                self.dismissDetails()
+            }else{
+                debugPrint("CreateGroupVC.createGroup() not completed")
+            }
+        })
     }
 }
 
@@ -85,7 +98,6 @@ extension CreateGroupVC: UITableViewDelegate , UITableViewDataSource {
                     doneButton.isHidden = true
                 }
             }
-            
         }
     }
 }
@@ -104,4 +116,16 @@ extension CreateGroupVC: UITextFieldDelegate{
             }
         }
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == titleTextField{
+            descriptionTextField.becomeFirstResponder()
+        }else if textField == descriptionTextField{
+            emailTextField.becomeFirstResponder()
+        }else if textField == emailTextField{
+            view.endEditing(true)
+        }
+        return true
+    }
+    
 }

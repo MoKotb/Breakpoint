@@ -7,22 +7,40 @@ class FeedVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+    }
+    
+    func setupView(){
         feedTable.delegate = self
         feedTable.dataSource = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        DataService.instance.getAllFeeds { (messages) in
-            self.messagesArray = messages.reversed()
-            if self.messagesArray.count > 0 {
-                self.feedTable.isHidden = false
-                self.feedTable.reloadData()
-            }else{
-                self.feedTable.isHidden = true
+        downloadFeeds()
+    }
+    
+    func downloadFeeds(){
+        DataService.instance.REF_FEEDS.observe(.value) { (DataSnapshot) in
+            DataService.instance.getAllFeeds { (messages) in
+                self.messagesArray = messages.reversed()
+                if self.messagesArray.count > 0 {
+                    self.feedTable.isHidden = false
+                    self.feedTable.reloadData()
+                }else{
+                    self.feedTable.isHidden = true
+                }
             }
-            
         }
+    }
+    
+    @IBAction func createPostPressed(_ sender: Any) {
+        presentToCreatePostVC()
+    }
+    
+    private func presentToCreatePostVC(){
+        guard let createPostVC = storyboard?.instantiateViewController(withIdentifier: CREATE_POST_VC_IDENTIFIER) as? CreatePostVC else { return }
+        presentDetails(createPostVC)
     }
 }
 

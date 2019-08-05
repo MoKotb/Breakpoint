@@ -20,7 +20,7 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func backPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        dismissDetails()
     }
     
     @IBAction func signInPressed(_ sender: Any) {
@@ -37,10 +37,9 @@ class LoginVC: UIViewController {
     private func loginUser(email:String,password:String){
         AuthService.instance.loginUser(email: email, userPassword: password) { (Success, error) in
             if Success {
-                guard let tabVC = self.storyboard?.instantiateViewController(withIdentifier: "TabbarController") else { return }
-                self.present(tabVC, animated: true, completion: nil)
+                self.presentToTabbar()
             }else{
-                print("loginUser \(String(describing: error?.localizedDescription))")
+                debugPrint("LoginVC.loginUser() \(String(describing: error?.localizedDescription))")
             }
             self.registerUser(email: email, password: password)
         }
@@ -50,11 +49,14 @@ class LoginVC: UIViewController {
         AuthService.instance.registerUser(email: email, userPassword: password) { (Success, error) in
             if Success {
                 self.loginUser(email: email, password: password)
-                guard let tabVC = self.storyboard?.instantiateViewController(withIdentifier: "TabbarController") else { return }
-                self.present(tabVC, animated: true, completion: nil)
             }else{
-                print("registerUser \(String(describing: error?.localizedDescription))")
+                debugPrint("LoginVC.registerUser() \(String(describing: error?.localizedDescription))")
             }
         }
+    }
+    
+    func presentToTabbar(){
+        guard let tabVC = storyboard?.instantiateViewController(withIdentifier: "TabbarController") else { return }
+        presentDetails(tabVC)
     }
 }
